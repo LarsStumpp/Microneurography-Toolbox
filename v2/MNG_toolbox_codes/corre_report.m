@@ -45,13 +45,13 @@ ch2_idx = find(strcmp(app.popup_coorelation_signal2.Value, app.popup_coorelation
 data_2(:,2) = ts_2(1):ts_2(1):ts_2(2);
 name_2 = char(string(name_2));
 
-if (fs/2)/((1/ts_1(1))/2) <= 1
+if (fs/2)/((1/ts_1(1))/2) < 1
     [b1,a1] = butter(3,(fs/2)/((1/ts_1(1))/2));
 else
     [b1,a1] = butter(3,0.999999);
 end
 
-if (fs/2)/((1/ts_2(1))/2) <= 1
+if (fs/2)/((1/ts_2(1))/2) < 1
     [b2,a2] = butter(3,(fs/2)/((1/ts_2(1))/2));
 else
     [b2,a2] = butter(3,0.999999);
@@ -199,15 +199,16 @@ for i = 1:length(int_idxs)
     for j = 1 : length(form_idxs)
         tmp_name = [file '_INT_' num2str(app.settings.interval(1,1)) '-' num2str(app.settings.interval(1,2)) '_correlation_' simple_name(int_names{int_idxs(i)}) '_SIG_' name_1 '+' name_2 ];
         idx = find(ismember(tmp_name,['/','/','>','<']));   
+        if ~isempty(idx)
+            switch tmp_name(idx(i))
+                case '/'
+                    tmp_name(idx(i)) = '-';
+                case '>'
+                    tmp_name = [tmp_name(1:idx(i)-1) '[more_than]' tmp_name(idx(i)+1: end)];
         
-        switch tmp_name(idx(i))
-            case '/'
-                tmp_name(idx(i)) = '-';
-            case '>'
-                tmp_name = [tmp_name(1:idx(i)-1) '[more_than]' tmp_name(idx(i)+1: end)];
-    
-            case '<'
-                tmp_name = [tmp_name(1:idx(i)-1) '[less_than]' tmp_name(idx(i)+1: end)];
+                case '<'
+                    tmp_name = [tmp_name(1:idx(i)-1) '[less_than]' tmp_name(idx(i)+1: end)];
+            end
         end
         
         switch form_idxs(j)

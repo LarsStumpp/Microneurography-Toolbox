@@ -30,13 +30,13 @@ ch2_idx = find(strcmp(app.popup_coorelation_signal2.Value, app.popup_coorelation
 data_2(:,2) = ts_2(1):ts_2(1):ts_2(2);
 name_2 = char(string(name_2));
 
-if (fs/2)/((1/ts_1(1))/2) <= 1
+if (fs/2)/((1/ts_1(1))/2) < 1
     [b1,a1] = butter(3,(fs/2)/((1/ts_1(1))/2));
 else
     [b1,a1] = butter(3,0.999999);
 end
 
-if (fs/2)/((1/ts_2(1))/2) <= 1
+if (fs/2)/((1/ts_2(1))/2) < 1
     [b2,a2] = butter(3,(fs/2)/((1/ts_2(1))/2));
 else
     [b2,a2] = butter(3,0.999999);

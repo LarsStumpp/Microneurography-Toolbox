@@ -115,11 +115,15 @@ if load
         if tmp_ts1(1) < tmp_ts2(1)
             app.settings.lagsig1 = tmp_data1(:,1);
             app.settings.lagts = tmp_data1(:,2);
-            app.settings.lagsig2 = interp1(tmp_data2(:,2),tmp_data2(:,1),tmp_data1(:,2));
+%             app.settings.lagsig2 = interp1(tmp_data2(:,2),tmp_data2(:,1),tmp_data1(:,2));
+            app.settings.lagsig2 = interp1([tmp_data2(1,2)-mean(diff(tmp_data2(:,2)));tmp_data2(:,2);tmp_data2(end,2)+mean(diff(tmp_data2(:,2)))],...
+                                           [tmp_data2(1,1);tmp_data2(:,1);tmp_data2(end,1)],tmp_data1(:,2));
         else
             app.settings.lagsig2 = tmp_data2(:,1);
             app.settings.lagts = tmp_data2(:,2);
-            app.settings.lagsig1 = interp1(tmp_data1(:,2),tmp_data1(:,1),tmp_data2(:,2));
+%             app.settings.lagsig1 = interp1(tmp_data1(:,2),tmp_data1(:,1),tmp_data2(:,2));
+            app.settings.lagsig1 = interp1([tmp_data1(1,2)-mean(diff(tmp_data1(:,2)));tmp_data1(:,2);tmp_data1(end,2)+mean(diff(tmp_data1(:,2)))],...
+                                           [tmp_data1(1,1);tmp_data1(:,1);tmp_data1(end,1)],tmp_data2(:,2));
         end        
         
         if ~strcmp(app.popup_lag_int.Value, 'full')       

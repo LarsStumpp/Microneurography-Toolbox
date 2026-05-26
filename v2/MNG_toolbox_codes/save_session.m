@@ -35,8 +35,16 @@ if app.settings.done.burst
     savestruct.burst.type = app.burst_res.type;
     switch savestruct.burst.type
         case 1
+            %%old
+%             savestruct.burst.delay = app.burst_res.delay;
+%             savestruct.burst.window_org = app.settings.burst_rem_int; %%%%%% edit
+            %%new
+            savestruct.burst.burst_loc = app.burst_res.burst_loc;
+            savestruct.burst.t_burst = app.burst_res.t_burst;
+            savestruct.burst.use_burst =app.burst_res.use_burst;
+            savestruct.burst.burst_latency = app.burst_res.burst_latency;
             savestruct.burst.delay = app.burst_res.delay;
-            savestruct.burst.window_org = app.settings.burst_rem_int; %%%%%% edit
+            savestruct.burst.win = [app.burst_res.window;app.burst_res.window_org];
             
         case 2
             savestruct.burst.thresh = app.burst_res.thresh;
@@ -48,6 +56,7 @@ if app.settings.done.burst
     savestruct.burst.window = app.burst_res.window;
     savestruct.burst.use_burst =  app.burst_res.use_burst;
     savestruct.burst.rem_int =  app.settings.burst_rem_int;  
+    savestruct.burst.normalize = app.chkbx_normalize.Value;
 end
 
 if ~isempty(app.spike_res)

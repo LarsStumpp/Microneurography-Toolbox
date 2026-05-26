@@ -1,8 +1,8 @@
 function spike_res = transduction_analysis (app, update)
 
-% if nargin == 1
-%     update = false;
-% end
+if nargin == 1
+    update = false;
+end
 % MIN_CLUSTER=10;
 % % MSNA = app.data(app.settings.channel_idx.msna).data;
 % % data = app.data(app.settings.channel_idx.msna).data(app.settings.interval(1,1)/app.data(app.settings.channel_idx.msna).ts(1):app.settings.interval(1,2)/app.data(app.settings.channel_idx.msna).ts(1));

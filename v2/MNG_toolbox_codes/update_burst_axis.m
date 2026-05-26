@@ -26,12 +26,12 @@ cla(app.ax_burst_amplitude_his), cla(app.ax_burst_integral_his)
 cla(app.ax_burst_res), cla(app.ax_msna_int)
 cla(app.ax_burst_latency_his)
 
-%yl = ylim(app.ax_msna_raw);
+yl_raw = ylim(app.ax_msna_raw);
 
 hold(app.ax_msna_raw,'off')
 for i = 1: size(app.settings.burst_rem_int,1)
     tmp = app.settings.burst_rem_int(i,:);
-    fill(app.ax_msna_raw,[tmp(1), tmp(1), tmp(2), tmp(2)],[yl(1), yl(2), yl(2), yl(1)],'r','FaceAlpha', 0.3, 'HitTest','off')
+    fill(app.ax_msna_raw,[tmp(1), tmp(1), tmp(2), tmp(2)],[yl_raw(1), yl_raw(2), yl_raw(2), yl_raw(1)],'r','FaceAlpha', 0.3, 'HitTest','off')
     hold(app.ax_msna_raw,'on')
 end
  

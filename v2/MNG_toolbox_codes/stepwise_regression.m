@@ -5,26 +5,56 @@ ds = app.edt_reg_downsampling.Value;
 channel_idx = find(strcmp(app.popup_signal_to_predict.Value,app.popup_signal_to_predict.Items));
 [data_p,ts_p,name_p, ~] = current_signal(app, channel_idx);
 name_p =char(string(name_p)); 
-% data_p_d = downsample(data_p,(.01/ts_p(1)*ds));
-[data_p_d, ~] = resample(data_p,ts_p(1):ts_p(1):ts_p(2),100,'linear');
-data_p_d = downsample(data_p_d,ds);
+%% old
+% % data_p_d = downsample(data_p,(.01/ts_p(1)*ds));
+% [data_p_d, ~] = resample(data_p,ts_p(1):ts_p(1):ts_p(2),100,'linear');
+% data_p_d = downsample(data_p_d,ds);
+% 
+% reg_table = app.tbl_regressor.Data;
+% 
+% data_r_d = nan(length(data_p_d),size(reg_table,1));
+% reg_name = {[]};
+% lags = nan(length(data_p_d),1);
+% for i= 1: size(reg_table,1)
+%     ch_idx = find(strcmp(reg_table{i,1},app.popup_regressor.Items));
+%     [data_tmp,ts_tmp,name_tmp, unit_tmp] = current_signal(app, ch_idx);
+%     
+% %     data_r_d(:,i) = downsample(data_tmp,.01/ts_tmp(1)*ds)';
+%     [data_tmp, ~] = resample(data_tmp,ts_tmp(1):ts_tmp(1):ts_tmp(2),100,'linear');
+%     data_r_d(:,i) = downsample(data_tmp,ds)';
+%     reg_name{i} = char(string(name_tmp));
+%     lags(i) = reg_table{i,2};
+% end
+%%
+%% new
+fs = 100/ds;
+ts_ds = 1/fs:1/fs:ts_p(2);
+
+tmp_ts = ts_p(1):ts_p(1):ts_p(2);
+tmp_ts = [tmp_ts(1)-ts_p(1),tmp_ts, tmp_ts(end)+ts_p(1)];
+tmp_data = [data_p(1);data_p;data_p(end)];
+data_p_d =interp1(tmp_ts,tmp_data,ts_ds)';
 
 reg_table = app.tbl_regressor.Data;
 
 data_r_d = nan(length(data_p_d),size(reg_table,1));
 reg_name = {[]};
 lags = nan(length(data_p_d),1);
+
 for i= 1: size(reg_table,1)
     ch_idx = find(strcmp(reg_table{i,1},app.popup_regressor.Items));
     [data_tmp,ts_tmp,name_tmp, unit_tmp] = current_signal(app, ch_idx);
     
-%     data_r_d(:,i) = downsample(data_tmp,.01/ts_tmp(1)*ds)';
-    [data_tmp, ~] = resample(data_tmp,ts_tmp(1):ts_tmp(1):ts_tmp(2),100,'linear');
-    data_r_d(:,i) = downsample(data_tmp,ds)';
+    tmp_ts = ts_tmp(1):ts_tmp(1):ts_tmp(2);
+    tmp_ts = [tmp_ts(1)-ts_tmp(1),tmp_ts, tmp_ts(end)+ts_tmp(1)];
+    tmp_data = [data_tmp(1);data_tmp;data_tmp(end)];
+    data_r_d(:,i) =interp1(tmp_ts,tmp_data,ts_ds);
+
     reg_name{i} = char(string(name_tmp));
     lags(i) = reg_table{i,2};
 end
 
+%%
 tmp =find(vertcat(app.burst_ints.type) == 1);
 borders(1,:) = [1 length(data_p_d)];
 int_name{1} = 'full';

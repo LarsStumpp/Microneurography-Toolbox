@@ -49,7 +49,7 @@ for i=1:length(app.lag)
     print_cell{end,9} = rs;
     print_cell{end,10} = ps;
     
-    disp(['i: ' num2str(i) ' / ' num2str(length(ints)) ' , j: ' num2str(j) ' / ' num2str(length(sig1)) ' , k: ' num2str(k)  '/ ' num2str(length(sig2))])
+%     disp(['i: ' num2str(i) ' / ' num2str(length(ints)) ' , j: ' num2str(j) ' / ' num2str(length(sig1)) ' , k: ' num2str(k)  '/ ' num2str(length(sig2))])
     
 end
 
@@ -135,7 +135,7 @@ sig2 = app.settings.lagsig2(tmp(1):tmp(2))-mean(app.settings.lagsig2(tmp(1):tmp(
 sig2 = sig2/max(abs(sig2));
 idx =  lag_set.lag/mean(diff(app.settings.lagts)); 
 if lag_set.lag>=0
-    sig2 = [nan(idx,1);sig2];
+    sig2 = [nan(int16(idx),1);sig2];
 else
     sig1 = [nan(abs(idx),1);sig1];
 end
@@ -158,10 +158,10 @@ sig2 = app.settings.lagsig2(tmp(1):tmp(2))-mean(app.settings.lagsig2(tmp(1):tmp(
 sig2 = sig2/max(abs(sig2)); 
 if idx>=0
     sig1(1:idx) = [];
-    sig2(end-idx+1:end) = [];
+    sig2(end-idx+2:end) = [];
 else
-    sig2(1:idx) = [];
-    sig1(end-idx+1:end) = [];
+    sig2(1:abs(idx)) = [];
+    sig1(end-abs(idx)+2:end) = [];
 end
 rk=999;pk =999;
 %     [rk,pk ]  = corr(sig1,sig2,'Type','Kendall');

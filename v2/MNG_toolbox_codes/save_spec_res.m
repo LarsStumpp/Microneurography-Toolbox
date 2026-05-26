@@ -73,20 +73,27 @@ for i = 1:length(int_idxs)
         hold on
         tmp_dt = mean(diff(app.spec_res.x_1_1{j,int_idxs(i)}));
         lim= [round(app.edt_min_frq.Value/tmp_dt)  round(app.edt_max_frq.Value/tmp_dt)];
+        if lim(2) > length(app.spec_res.x_1_1{j,int_idxs(i)})
+            lim(2) = length(app.spec_res.x_1_1{j,int_idxs(i)});
+        end
         plot(app.spec_res.x_1_1{j,int_idxs(i)}(lim(1):lim(2)), app.spec_res.y_1_1{j,int_idxs(i)}(lim(1):lim(2)))
-        mx(1) = max([mx(1),max(app.spec_res.y_1_1{j,int_idxs(i)}(int16(0.4/tmp_dt):int16(app.edt_max_frq.Value/tmp_dt)))]);
+        mx(1) = max([mx(1),max(app.spec_res.y_1_1{j,int_idxs(i)}(int16(0.4/tmp_dt):lim(2)))]); %int16(app.edt_max_frq.Value/tmp_dt)))]);
         leg_str_1_1{j} = char(string(app.spec_res.lbl_1_1{j,int_idxs(i)}));
         if j ==2
             legend (leg_str_1_1) 
         end
+%         xlim([app.edt_min_frq.Value,app.edt_max_frq.Value]) 
         hold off
 
         subplot(5,2,5)
         hold on
         tmp_dt = mean(diff(app.spec_res.x_2_1{j,int_idxs(i)}));
         lim= [round(app.edt_min_frq.Value/tmp_dt)  round(app.edt_max_frq.Value/tmp_dt)];
+        if lim(2) > length(app.spec_res.x_2_1{j,int_idxs(i)})
+            lim(2) = length(app.spec_res.x_2_1{j,int_idxs(i)});
+        end
         plot(app.spec_res.x_2_1{j,int_idxs(i)}(lim(1):lim(2)), app.spec_res.y_2_1{j,int_idxs(i)}(lim(1):lim(2)))
-        mx(2) = max([mx(2),max(app.spec_res.y_2_1{j,int_idxs(i)}(int16(0.3/tmp_dt):int16(app.edt_max_frq.Value/tmp_dt)))]);
+        mx(2) = max([mx(2),max(app.spec_res.y_2_1{j,int_idxs(i)}(int16(0.3/tmp_dt):lim(2)))]); %:int16(app.edt_max_frq.Value/tmp_dt)))]);
         leg_str_2_1{j} = char(string(app.spec_res.lbl_2_1{j,int_idxs(i)}));
         if j ==2
             legend (leg_str_2_1) 
@@ -97,8 +104,11 @@ for i = 1:length(int_idxs)
         hold on
         tmp_dt = mean(diff(app.spec_res.x_3_1{j,int_idxs(i)}));
         lim= [round(app.edt_min_frq.Value/tmp_dt)  round(app.edt_max_frq.Value/tmp_dt)];
+        if lim(2) > length(app.spec_res.x_3_1{j,int_idxs(i)})
+            lim(2) = length(app.spec_res.x_3_1{j,int_idxs(i)});
+        end
         plot(app.spec_res.x_3_1{j,int_idxs(i)}(lim(1):lim(2)), app.spec_res.y_3_1{j,int_idxs(i)}(lim(1):lim(2)))
-        mx(3) = max([mx(3),max(app.spec_res.y_3_1{j,int_idxs(i)}(int16(0.3/tmp_dt):int16(app.edt_max_frq.Value/tmp_dt)))]);
+        mx(3) = max([mx(3),max(app.spec_res.y_3_1{j,int_idxs(i)}(int16(0.3/tmp_dt):lim(2)))]); %:int16(app.edt_max_frq.Value/tmp_dt)))]);
         leg_str_3_1{j} = char(string(app.spec_res.lbl_3_1{j,int_idxs(i)}));
         if j ==2
             legend (leg_str_3_1) 
@@ -109,8 +119,11 @@ for i = 1:length(int_idxs)
         hold on
         tmp_dt = mean(diff(app.spec_res.x_4_1{j,int_idxs(i)}));
         lim= [round(app.edt_min_frq.Value/tmp_dt)  round(app.edt_max_frq.Value/tmp_dt)];
+        if lim(2) > length(app.spec_res.x_4_1{j,int_idxs(i)})
+            lim(2) = length(app.spec_res.x_4_1{j,int_idxs(i)});
+        end
         plot(app.spec_res.x_4_1{j,int_idxs(i)}(lim(1):lim(2)), app.spec_res.y_4_1{j,int_idxs(i)}(lim(1):lim(2)))
-        mx(4) = max([mx(4),max(app.spec_res.y_4_1{j,int_idxs(i)}(int16(0.3/tmp_dt):int16(app.edt_max_frq.Value/tmp_dt)))]);
+        mx(4) = max([mx(4),max(app.spec_res.y_4_1{j,int_idxs(i)}(int16(0.3/tmp_dt):lim(2)))]); %:int16(app.edt_max_frq.Value/tmp_dt)))]);
         leg_str_4_1{j} = char(string(app.spec_res.lbl_4_1{j,int_idxs(i)}));
         if j ==2
             legend (leg_str_4_1) 
@@ -134,6 +147,9 @@ for i = 1:length(int_idxs)
                 hold on
                 tmp_dt = mean(diff(app.spec_res.x_1_2{plot_idx,int_idxs(i)}));
                 lim= [round(app.edt_min_frq.Value/tmp_dt)  round(app.edt_max_frq.Value/tmp_dt)];
+                if lim(2) > length(app.spec_res.x_1_2{j,int_idxs(i)})
+                    lim(2) = length(app.spec_res.x_1_2{j,int_idxs(i)});
+                end
                 plot(app.spec_res.x_1_2{plot_idx,int_idxs(i)}(lim(1):lim(2)), app.spec_res.y_1_2{plot_idx,int_idxs(i)}(lim(1):lim(2)))
                 leg_str_1_2{plot_idx} = char(string(app.spec_res.lbl_1_2{plot_idx,int_idxs(i)}));
                 if plot_idx == 6
@@ -146,6 +162,9 @@ for i = 1:length(int_idxs)
                 hold on
                 tmp_dt = mean(diff(app.spec_res.x_2_2{plot_idx,int_idxs(i)}));
                 lim= [round(app.edt_min_frq.Value/tmp_dt)  round(app.edt_max_frq.Value/tmp_dt)];
+                if lim(2) > length(app.spec_res.x_2_2{j,int_idxs(i)})
+                    lim(2) = length(app.spec_res.x_2_2{j,int_idxs(i)});
+                end
                 plot(app.spec_res.x_2_2{plot_idx,int_idxs(i)}(lim(1):lim(2)), app.spec_res.y_2_2{plot_idx,int_idxs(i)}(lim(1):lim(2)))
                 leg_str_2_2{plot_idx} = char(string(app.spec_res.lbl_2_2{plot_idx,int_idxs(i)}));
                 if plot_idx == 6
@@ -158,6 +177,9 @@ for i = 1:length(int_idxs)
                 hold on 
                 tmp_dt = mean(diff(app.spec_res.x_3_2{plot_idx,int_idxs(i)}));
                 lim= [round(app.edt_min_frq.Value/tmp_dt)  round(app.edt_max_frq.Value/tmp_dt)];
+                if lim(2) > length(app.spec_res.x_3_2{j,int_idxs(i)})
+                    lim(2) = length(app.spec_res.x_3_2{j,int_idxs(i)});
+                end
                 plot(app.spec_res.x_3_2{plot_idx,int_idxs(i)}(lim(1):lim(2)), app.spec_res.y_3_2{plot_idx,int_idxs(i)}(lim(1):lim(2)))
                 leg_str_3_2{plot_idx} = char(string(app.spec_res.lbl_3_2{plot_idx,int_idxs(i)}));
                 if plot_idx == 6
@@ -170,6 +192,9 @@ for i = 1:length(int_idxs)
                 hold on 
                 tmp_dt = mean(diff(app.spec_res.x_4_2{plot_idx,int_idxs(i)}));
                 lim= [round(app.edt_min_frq.Value/tmp_dt)  round(app.edt_max_frq.Value/tmp_dt)];
+                if lim(2) > length(app.spec_res.x_4_2{j,int_idxs(i)})
+                    lim(2) = length(app.spec_res.x_4_2{j,int_idxs(i)});
+                end
                 plot(app.spec_res.x_4_2{plot_idx,int_idxs(i)}(lim(1):lim(2)), app.spec_res.y_4_2{plot_idx,int_idxs(i)}(lim(1):lim(2)))
                 leg_str_4_2{plot_idx} = char(string(app.spec_res.lbl_4_2{plot_idx,int_idxs(i)}));
                 if plot_idx == 6

@@ -72,7 +72,8 @@ else
             spec_res.x_3_1{i,k} = (0:length(X)-1)*fs/length(X);
             spec_res.lbl_3_1{i,k} = ['DS = ' num2str(a)];
             %hold([a8],'on'), plot(a8,fxx2,pxx2,'linewidth',1.5,'DisplayName',['DS=' num2str(a)]);
-           
+            spec_res.y_3_1{i,k} = spec_res.y_3_1{i,k}(1:1+ceil((length(spec_res.y_3_1{i,k})-1)/2));
+            spec_res.x_3_1{i,k} = spec_res.x_3_1{i,k}(1:length(spec_res.y_3_1{i,k}));
             
             
             Nw=3;  %effective bandwidth

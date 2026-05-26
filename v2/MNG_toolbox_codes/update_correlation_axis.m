@@ -41,13 +41,13 @@ else
     [data_2,ts_2,name_2, unit_2] = current_signal(app, ch2_idx);
     data_2(:,2) = ts_2(1):ts_2(1):ts_2(2);
 
-    if (fs/2)/((1/ts_1(1))/2) <= 1
+    if (fs/2)/((1/ts_1(1))/2) < 1
         [b1,a1] = butter(3,(fs/2)/((1/ts_1(1))/2));
     else
         [b1,a1] = butter(3,0.999999);
     end
     
-    if (fs/2)/((1/ts_2(1))/2) <= 1
+    if (fs/2)/((1/ts_2(1))/2) < 1
         [b2,a2] = butter(3,(fs/2)/((1/ts_2(1))/2));
     else
         [b2,a2] = butter(3,0.999999);
